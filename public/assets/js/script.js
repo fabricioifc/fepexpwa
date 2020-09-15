@@ -1,4 +1,4 @@
-import { trabalhos } from "./trabalhos.js";
+import { trabalhos } from "../../data/trabalhos.js";
 
 const main = document.querySelector(".main");
 const tamanho = 4;
