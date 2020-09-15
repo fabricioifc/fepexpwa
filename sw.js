@@ -1,4 +1,4 @@
-const CACHE_NAME = "v1";
+const CACHE_NAME = "v2";
 const CACHE_FILES = [
   "/",
   "public/assets/css/styles.css",
@@ -52,32 +52,33 @@ self.addEventListener("fetch", function (e) {
     // Verifica no cache pela requisição
     caches.match(e.request).then(function (response) {
       // Se tiver no cache, então não precisa buscar na internet
-      if (response) {
-        console.log("Encontrado no cache", e.request.url, response);
-        return response;
-      }
+      return response || fetch(e.request);
+      // if (response) {
+      //   console.log("Encontrado no cache", e.request.url, response);
+      //   return response;
+      // }
 
-      // Se NÃO estiver no cache, busca na internet e adiciona ao cache
-      var requestClone = e.request.clone();
-      return fetch(requestClone)
-        .then(function (response) {
-          if (!response) {
-            console.log("[ServiceWorker] Resposta inválida! ");
-            return response;
-          }
+      // // Se NÃO estiver no cache, busca na internet e adiciona ao cache
+      // var requestClone = e.request.clone();
+      // return fetch(requestClone)
+      //   .then(function (response) {
+      //     if (!response) {
+      //       console.log("[ServiceWorker] Resposta inválida! ");
+      //       return response;
+      //     }
 
-          var responseClone = response.clone();
+      //     var responseClone = response.clone();
 
-          //  Abre o cache
-          caches.open(CACHE_NAME).then(function (cache) {
-            // Coloca a resposta obtida no cache
-            cache.put(e.request, responseClone);
-            return response;
-          });
-        })
-        .catch(function (err) {
-          console.log("[ServiceWorker] Ocorreu um Erro", err);
-        });
+      //     //  Abre o cache
+      //     caches.open(CACHE_NAME).then(function (cache) {
+      //       // Coloca a resposta obtida no cache
+      //       cache.put(e.request, responseClone);
+      //       return response;
+      //     });
+      //   })
+      //   .catch(function (err) {
+      //     console.log("[ServiceWorker] Ocorreu um Erro", err);
+      //   });
     })
   );
 });
