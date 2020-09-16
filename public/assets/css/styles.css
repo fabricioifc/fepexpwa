@@ -5,3 +5,13 @@
 .small-text {
   font-size: 0.875rem;
 }
+
+.card.small {
+  height: 150px;
+}
+
+@media only screen and (max-width: 350px) {
+  .card.small {
+    height: 200px;
+  }
+}

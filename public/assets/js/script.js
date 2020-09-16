@@ -1,19 +1,12 @@
 import { trabalhos } from "../../data/trabalhos.js";
 
 const main = document.querySelector(".trabalhos");
-const tamanho = 3;
-const trabalhos_em_partes = new Array(Math.ceil(trabalhos.length / tamanho))
-  .fill()
-  .map((_) => trabalhos.splice(0, tamanho));
 
 self.addEventListener("load", function (evento) {
-  trabalhos_em_partes.forEach((itens) => {
-    let html = "<div class='row'>";
-
-    itens.forEach((trabalho) => {
-      let card = `
-        <div class="col l4 s12">
-          <div class="card indigo darken-4">
+  trabalhos.forEach((trabalho) => {
+    let card = `
+        <div class="col l4 m6 s12">
+          <div class="card small indigo darken-4">
             <div class="card-content white-text">
               <p class="small-text">${trabalho.titulo}</p>
             </div>
@@ -26,11 +19,7 @@ self.addEventListener("load", function (evento) {
           </div>
         </div>
     `;
-      html += card;
-    });
-    html += "</div>";
-
-    main.innerHTML += html;
+    main.innerHTML += card;
   });
 });
 
