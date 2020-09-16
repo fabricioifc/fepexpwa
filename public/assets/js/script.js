@@ -16,7 +16,7 @@ self.addEventListener("load", function (evento) {
         <div class="col l4 s12">
           <div class="card indigo darken-4">
             <div class="card-content white-text">
-              <p class="sm" title="${trabalho.titulo}">${trabalho.titulo}</p>
+              <p class="sm red-text" title="${trabalho.titulo}">${trabalho.titulo}</p>
             </div>
             <div class="card-action">
               <a href="${trabalho.link_trabalho}" target="_blank" title="Trabalho Escrito"><i class="material-icons orange-text">picture_as_pdf</i></a>
@@ -42,7 +42,6 @@ function registerServiceWorker() {
       .then((reg) => {
         console.log("Registration successful", reg);
         logo.onclick = function () {
-          console.log("update");
           reg.update();
         };
       })
