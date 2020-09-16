@@ -422,7 +422,7 @@ const trabalhos = [
   {
     numero: "46",
     titulo:
-      "AUXÍLIO NA APRENDIZAGEM DO ESPANHOL COMO LÍNGUA ESTRANGEIRA NO 1º ANO DO ENSINO MÉDIO (AADELE): PROJETO DE ENSINO EM ANDAMENTO",
+      "AUXÍLIO NA APRENDIZAGEM DO ESPANHOL COMO LÍNGUA ESTRANGEIRA NO 1º ANO DO ENSINO MÉDIO (AADELE)",
     modalidade: "RESUMO",
     area: "Ensino",
     link_trabalho:

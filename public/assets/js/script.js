@@ -1,7 +1,7 @@
 import { trabalhos } from "../../data/trabalhos.js";
 
-const main = document.querySelector(".main");
-const tamanho = 4;
+const main = document.querySelector(".trabalhos");
+const tamanho = 3;
 const trabalhos_em_partes = new Array(Math.ceil(trabalhos.length / tamanho))
   .fill()
   .map((_) => trabalhos.splice(0, tamanho));
@@ -12,13 +12,18 @@ self.addEventListener("load", function (evento) {
 
     itens.forEach((trabalho) => {
       let card = `
-      <div class="column">
-        <a href="${trabalho.link_video}" class="link_video" target="_blank">
-            <div class="card">
-                <img src="public/assets/image/youtube.jpg">
-                <p class="titulo">${trabalho.titulo}</p>
+        <div class="col l4 s12">
+          <div class="card indigo darken-4">
+            <div class="card-content white-text">
+              <p class="truncate" title="${trabalho.titulo}">${trabalho.titulo}</p>
             </div>
-        </a>
+            <div class="card-action">
+              <a href="${trabalho.link_trabalho}" target="_blank" title="Trabalho Escrito"><i class="material-icons">article</i></a>
+              <a href="${trabalho.link_video}" target="_blank" title="Apresentação"><i class="material-icons">movie</i></a>
+              <span class="badge blue darken-3 white-text">${trabalho.area}</span>
+              <span class="badge blue darken-3 white-text">${trabalho.modalidade}</span>
+            </div>
+          </div>
         </div>
     `;
       html += card;

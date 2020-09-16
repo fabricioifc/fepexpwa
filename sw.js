@@ -1,4 +1,4 @@
-const CACHE_NAME = "v2";
+const CACHE_NAME = "v1";
 const CACHE_FILES = [
   "/",
   "public/assets/css/styles.css",
@@ -8,7 +8,9 @@ const CACHE_FILES = [
   "public/assets/image/logo192.png",
   "public/assets/image/logo144.png",
   "public/assets/image/logo96.png",
-  "public/assets/image/youtube.jpg",
+  "//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css",
+  "//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js",
+  "//fonts.googleapis.com/icon?family=Material+Icons",
 ];
 
 self.addEventListener("install", function (e) {
