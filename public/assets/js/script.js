@@ -15,7 +15,7 @@ self.addEventListener("load", function (evento) {
         <div class="col l4 s12">
           <div class="card indigo darken-4">
             <div class="card-content white-text">
-              <span class="sm">${trabalho.titulo}</span>
+              <p class="small-text">${trabalho.titulo}</p>
             </div>
             <div class="card-action">
               <a href="${trabalho.link_trabalho}" target="_blank" title="Trabalho Escrito"><i class="material-icons orange-text">picture_as_pdf</i></a>
