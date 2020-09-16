@@ -1,6 +1,7 @@
 import { trabalhos } from "../../data/trabalhos.js";
 
 const main = document.querySelector(".trabalhos");
+const logo = document.querySelector(".brand-logo");
 const tamanho = 3;
 const trabalhos_em_partes = new Array(Math.ceil(trabalhos.length / tamanho))
   .fill()
@@ -40,6 +41,10 @@ function registerServiceWorker() {
       .register("/sw.js")
       .then((reg) => {
         console.log("Registration successful", reg);
+        logo.onclick = function () {
+          console.log("update");
+          reg.update();
+        };
       })
       .catch((e) =>
         console.error("Error during service worker registration:", e)
