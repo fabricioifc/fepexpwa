@@ -1,7 +1,6 @@
 import { trabalhos } from "../../data/trabalhos.js";
 
 const main = document.querySelector(".trabalhos");
-const logo = document.querySelector(".brand-logo");
 const tamanho = 3;
 const trabalhos_em_partes = new Array(Math.ceil(trabalhos.length / tamanho))
   .fill()
@@ -16,7 +15,7 @@ self.addEventListener("load", function (evento) {
         <div class="col l4 s12">
           <div class="card indigo darken-4">
             <div class="card-content white-text">
-              <p class="sm red-text" title="${trabalho.titulo}">${trabalho.titulo}</p>
+              <span class="sm">${trabalho.titulo}</span>
             </div>
             <div class="card-action">
               <a href="${trabalho.link_trabalho}" target="_blank" title="Trabalho Escrito"><i class="material-icons orange-text">picture_as_pdf</i></a>
@@ -41,9 +40,6 @@ function registerServiceWorker() {
       .register("/sw.js")
       .then((reg) => {
         console.log("Registration successful", reg);
-        logo.onclick = function () {
-          reg.update();
-        };
       })
       .catch((e) =>
         console.error("Error during service worker registration:", e)
