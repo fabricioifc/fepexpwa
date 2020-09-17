@@ -1,4 +1,4 @@
-const trabalhos = [
+export default trabalhos = [
   {
     numero: "1",
     titulo:
@@ -440,5 +440,3 @@ const trabalhos = [
     link_video: "https://youtu.be/I4QCqcqH9LM",
   },
 ];
-
-export { trabalhos };
