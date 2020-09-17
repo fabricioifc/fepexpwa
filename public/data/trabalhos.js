@@ -441,4 +441,4 @@ const trabalhos = [
   },
 ];
 
-export { trabalhos };
+export default trabalhos;

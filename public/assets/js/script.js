@@ -1,8 +1,12 @@
-import { trabalhos } from "../../data/trabalhos.js";
-
+// import trabalhos from "../../data/trabalhos.js";
 const main = document.querySelector(".trabalhos");
+const api = "https://api.github.com/gists/185a6574d38e0692423efc8dea4afb16";
+const gist_name = "trabalhos_fepex_2020";
 
-self.addEventListener("load", function (evento) {
+self.addEventListener("load", async function (evento) {
+  let json = await (await fetch(api)).json();
+  let trabalhos = await JSON.parse(json.files[gist_name].content);
+
   trabalhos.forEach((trabalho) => {
     let card = `
         <div class="col l4 m6 s12">
