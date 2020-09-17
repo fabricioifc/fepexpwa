@@ -27,7 +27,7 @@ function registerServiceWorker() {
     navigator.serviceWorker
       .register("/sw.js")
       .then((reg) => {
-        console.log("Service Worker Registrado com Sucesso!", reg);
+        console.log("Service Worker Registrado com Sucesso!");
       })
       .catch((e) => console.error("Erro ao registrar o service worker:", e));
   } else {
