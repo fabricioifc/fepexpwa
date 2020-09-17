@@ -3,7 +3,7 @@
   "name": "V Fepex",
   "description": "Exemplo de PWA apresentado na oficina da V FEPEX",
   "scope": "/",
-  "background_color": "#FFF",
+  "background_color": "#fff",
   "theme_color": "#022e43",
   "start_url": ".",
   "display": "standalone",

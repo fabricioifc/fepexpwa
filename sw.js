@@ -1,6 +1,7 @@
-const CACHE_NAME = "v2";
+const CACHE_NAME = "v1";
 const CACHE_FILES = [
   "/",
+  "manifest.json",
   "public/assets/css/styles.css",
   "public/assets/js/script.js",
   "public/data/trabalhos.js",
@@ -10,13 +11,13 @@ const CACHE_FILES = [
   "public/assets/image/logo96.png",
 ];
 
-self.addEventListener("install", function (e) {
+self.addEventListener("install", (e) => {
   console.log("[ServiceWorker] Instalado");
   self.skipWaiting();
 
   e.waitUntil(
     // Abre o cache
-    caches.open(CACHE_NAME).then(function (cache) {
+    caches.open(CACHE_NAME).then((cache) => {
       // Adiciona os arquivos ao cache
       console.log("[ServiceWorker] Cacheando arquivos desejados");
       return cache.addAll(CACHE_FILES);
@@ -50,19 +51,29 @@ self.addEventListener("fetch", function (event) {
     caches
       .match(event.request)
       .then(function (response) {
-        return (
-          response ||
-          fetch(event.request).then(function (resp) {
-            console.log(resp.url);
-            return resp;
-          })
-        );
+        return response || fetch(event.request);
       })
       .catch(function (error) {
         console.log("[ServiceWorker] fetch error", error);
       })
   );
 });
+
+// self.addEventListener("fetch", (event) => {
+//   event.respondWith(
+//     caches.open(CACHE_NAME).then((cache) => {
+//       return cache.match(event.request).then((response) => {
+//         return (
+//           response ||
+//           fetch(event.request).then((response) => {
+//             const responseClone = response.clone();
+//             cache.put(event.request, responseClone);
+//           })
+//         );
+//       });
+//     })
+//   );
+// });
 
 // self.addEventListener("fetch", function (e) {
 //   console.log("[ServiceWorker] Fetch", e.request.url);
