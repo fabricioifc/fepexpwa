@@ -1,4 +1,4 @@
-const CACHE_NAME = "v1";
+const CACHE_NAME = "v2";
 const CACHE_FILES = [
   "/",
   "public/assets/css/styles.css",
@@ -8,9 +8,6 @@ const CACHE_FILES = [
   "public/assets/image/logo192.png",
   "public/assets/image/logo144.png",
   "public/assets/image/logo96.png",
-  "//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css",
-  "//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js",
-  "//fonts.googleapis.com/icon?family=Material+Icons",
 ];
 
 self.addEventListener("install", function (e) {
@@ -47,39 +44,59 @@ self.addEventListener("activate", function (e) {
   );
 });
 
-self.addEventListener("fetch", function (e) {
-  console.log("[ServiceWorker] Fetch", e.request.url);
-
-  e.respondWith(
-    // Verifica no cache pela requisição
-    caches.match(e.request).then(function (response) {
-      // Se tiver no cache, então não precisa buscar na internet
-      if (response) {
-        console.log("Encontrado no cache", e.request.url, response);
-        return response;
-      }
-
-      // Se NÃO estiver no cache, busca na internet e adiciona ao cache
-      var requestClone = e.request.clone();
-      return fetch(requestClone)
-        .then(function (response) {
-          if (!response) {
-            console.log("[ServiceWorker] Resposta inválida! ");
-            return response;
-          }
-
-          var responseClone = response.clone();
-
-          //  Abre o cache
-          caches.open(CACHE_NAME).then(function (cache) {
-            // Coloca a resposta obtida no cache
-            cache.put(e.request, responseClone);
-            return response;
-          });
-        })
-        .catch(function (err) {
-          console.log("[ServiceWorker] Ocorreu um Erro", err);
-        });
-    })
+self.addEventListener("fetch", function (event) {
+  event.respondWith(
+    // Veja se tem no cache
+    caches
+      .match(event.request)
+      .then(function (response) {
+        return (
+          response ||
+          fetch(event.request).then(function (resp) {
+            console.log(resp.url);
+            return resp;
+          })
+        );
+      })
+      .catch(function (error) {
+        console.log("[ServiceWorker] fetch error", error);
+      })
   );
 });
+
+// self.addEventListener("fetch", function (e) {
+//   console.log("[ServiceWorker] Fetch", e.request.url);
+
+//   e.respondWith(
+//     // Verifica no cache pela requisição
+//     caches.match(e.request).then(function (response) {
+//       // Se tiver no cache, então não precisa buscar na internet
+//       if (response) {
+//         console.log("Encontrado no cache", e.request.url, response);
+//         return response;
+//       }
+
+//       // Se NÃO estiver no cache, busca na internet e adiciona ao cache
+//       var requestClone = e.request.clone();
+//       return fetch(requestClone)
+//         .then(function (response) {
+//           if (!response) {
+//             console.log("[ServiceWorker] Resposta inválida! ");
+//             return response;
+//           }
+
+//           var responseClone = response.clone();
+
+//           //  Abre o cache
+//           caches.open(CACHE_NAME).then(function (cache) {
+//             // Coloca a resposta obtida no cache
+//             cache.put(e.request, responseClone);
+//             return response;
+//           });
+//         })
+//         .catch(function (err) {
+//           console.log("[ServiceWorker] Ocorreu um Erro", err);
+//         });
+//     })
+//   );
+// });

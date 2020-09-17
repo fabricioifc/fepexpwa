@@ -28,13 +28,11 @@ function registerServiceWorker() {
     navigator.serviceWorker
       .register("/sw.js")
       .then((reg) => {
-        console.log("Registration successful", reg);
+        console.log("Service Worker Registrado com Sucesso!", reg);
       })
-      .catch((e) =>
-        console.error("Error during service worker registration:", e)
-      );
+      .catch((e) => console.error("Erro ao registrar o service worker:", e));
   } else {
-    console.warn("Service Worker is not supported");
+    console.warn("Service Worker não é suportado pelo dispositivo");
   }
 }
 
