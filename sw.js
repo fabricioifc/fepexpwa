@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v1';
+const CACHE_NAME = "v2";
 const CACHE_FILES = [
   "/",
   "manifest.json",
@@ -10,48 +10,92 @@ const CACHE_FILES = [
   "public/assets/image/logo144.png",
   "public/assets/image/logo96.png",
   "public/assets/image/logo512.png",
-]
+];
 
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('[ServiceWorker] Cacheando Arquivos!');
+self.addEventListener("install", (e) => {
+  console.log("[ServiceWorker] Instalado");
+
+  e.waitUntil(
+    // Abre o cache
+    caches
+      .open(CACHE_NAME)
+      .then((cache) => {
+        // Adiciona os arquivos ao cache
+        console.log("[ServiceWorker] Cacheando arquivos desejados");
         return cache.addAll(CACHE_FILES);
       })
-      .then(self.skipWaiting()) // O sw é ativado após ser instalado
-      .catch(error => console.warn('[INSTALL] Erro', error))
-  )
+      .then(() => self.skipWaiting())
+  );
 });
 
-self.addEventListener('activate', event => {
-  console.log('[ServiceWorker] Ativado');
-  event.waitUntil(
-    caches.keys()
-      .then(cacheNames => {
-        return Promise.all(
-          cacheNames.map(cacheName => {
-            console.log(`Cache Atual ${cacheName}`);
+self.addEventListener("activate", function (e) {
+  console.log("[ServiceWorker] Ativado");
 
-            if (cacheName !== CACHE_NAME) {
-              console.log('[ServiceWorker] Removendo o Cache ', cacheName);
-              return caches.delete(cacheName);
-
-            }
-          })
-        )
-      })
-  )
-
+  e.waitUntil(
+    // Pega todos os caches existentes
+    caches.keys().then(function (cacheNames) {
+      return Promise.all(
+        cacheNames.map(function (thisCacheName) {
+          // Se não for a versão atual, então remove
+          if (thisCacheName !== CACHE_NAME) {
+            console.log("[ServiceWorker] Removendo cache - ", thisCacheName);
+            return caches.delete(thisCacheName);
+          }
+        })
+      );
+    })
+  );
 });
 
-self.addEventListener('fetch', evento => {
+self.addEventListener("fetch", function (evento) {
   evento.respondWith(
+    // Veja se tem no cache
     caches
       .match(evento.request)
-      .then(response => {
-        return response || fetch(evento.request)
+      .then(function (response) {
+        console.log(evento.request.url);
+        return response || fetch(evento.request);
       })
-      .catch(error => console.log('[ServiceWorker] fetch error', error))
-  )
-})
+      .catch(function (error) {
+        console.log("[ServiceWorker] fetch error", error);
+      })
+  );
+});
+
+// self.addEventListener("fetch", function (e) {
+//   console.log("[ServiceWorker] Fetch", e.request.url);
+
+//   e.respondWith(
+//     // Verifica no cache pela requisição
+//     caches.match(e.request).then(function (response) {
+//       // Se tiver no cache, então não precisa buscar na internet
+//       if (response) {
+//         console.log("Encontrado no cache", e.request.url);
+//         return response;
+//       }
+
+//       // Se NÃO estiver no cache, busca na internet e adiciona ao cache
+//       var requestClone = e.request.clone();
+//       return fetch(requestClone)
+//         .then(function (response) {
+//           if (!response || !response.ok) {
+//             console.log("[ServiceWorker] Resposta inválida! ");
+//             return response;
+//           }
+
+//           var responseClone = response.clone();
+
+//           //  Abre o cache
+//           caches.open(CACHE_NAME).then(function (cache) {
+//             // Coloca a resposta obtida no cache
+//             cache.put(e.request, responseClone);
+//           });
+//           return response;
+//         })
+//         .catch(function (err) {
+//           console.log("[ServiceWorker] Ocorreu um Erro", err);
+//           // if (response) return response;
+//         });
+//     })
+//   );
+// });
