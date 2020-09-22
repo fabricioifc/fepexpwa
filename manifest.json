@@ -1,0 +1,33 @@
+{
+    "short_name": "V Fepex",
+    "name": "V FEPEX | Meu Primeiro PWA",
+    "description": "Feira de Ensino, Pesquisa e Extensão",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "public/assets/image/logo96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "public/assets/image/logo144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        },
+        {
+            "src": "public/assets/image/logo192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "public/assets/image/logo512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "background_color": "#EEE",
+    "theme_color": "#1565c0",
+    "start_url": ".",
+    "display": "standalone",
+    "orientation": "portrait"
+}
