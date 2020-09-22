@@ -17,7 +17,8 @@
         {
             "src": "public/assets/image/logo192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "maskable"
         },
         {
             "src": "public/assets/image/logo512.png",
