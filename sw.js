@@ -19,6 +19,39 @@ self.addEventListener('install', event => {
         console.log('[ServiceWorker] Cacheando Arquivos!');
         return cache.addAll(CACHE_FILES);
       })
+      .then(self.skipWaiting()) // O sw é ativado após ser instalado
       .catch(error => console.warn('[INSTALL] Erro', error))
   )
 });
+
+self.addEventListener('activate', event => {
+  console.log('[ServiceWorker] Ativado');
+  event.waitUntil(
+    caches.keys()
+      .then(cacheNames => {
+        return Promise.all(
+          cacheNames.map(cacheName => {
+            console.log(`Cache Atual ${cacheName}`);
+
+            if (cacheName !== CACHE_NAME) {
+              console.log('[ServiceWorker] Removendo o Cache ', cacheName);
+              return caches.delete(cacheName);
+
+            }
+          })
+        )
+      })
+  )
+
+});
+
+self.addEventListener('fetch', evento => {
+  evento.respondWith(
+    caches
+      .match(evento.request)
+      .then(response => {
+        return response || fetch(evento.request)
+      })
+      .catch(error => console.log('[ServiceWorker] fetch error', error))
+  )
+})
