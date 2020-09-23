@@ -49,7 +49,7 @@ self.addEventListener("activate", function (evento) {
 });
 
 self.addEventListener("fetch", function (evento) {
-  console.log('SW - requisição na URL ', event.request.url);
+  console.log('Requisição na URL \n', evento.request.url);
   evento.respondWith(
     // Veja se tem no cache
     caches
