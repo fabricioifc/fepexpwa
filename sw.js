@@ -1,4 +1,4 @@
-const CACHE_NAME = "v1";
+const CACHE_NAME = "fepex-v1";
 const CACHE_FILES = [
   "/",
   "manifest.json",
@@ -6,15 +6,16 @@ const CACHE_FILES = [
   "public/assets/js/script.js",
   "public/data/trabalhos.js",
   "public/assets/image/logo.png",
+  "public/assets/image/logo96.png",
   "public/assets/image/logo192.png",
   "public/assets/image/logo144.png",
-  "public/assets/image/logo96.png",
+  "public/assets/image/logo512.png",
 ];
 
-self.addEventListener("install", (e) => {
+self.addEventListener("install", (evento) => {
   console.log("[ServiceWorker] Instalado");
 
-  e.waitUntil(
+  evento.waitUntil(
     // Abre o cache
     caches
       .open(CACHE_NAME)
@@ -27,10 +28,10 @@ self.addEventListener("install", (e) => {
   );
 });
 
-self.addEventListener("activate", function (e) {
+self.addEventListener("activate", function (evento) {
   console.log("[ServiceWorker] Ativado");
 
-  e.waitUntil(
+  evento.waitUntil(
     // Pega todos os caches existentes
     caches.keys().then(function (cacheNames) {
       return Promise.all(
@@ -47,13 +48,14 @@ self.addEventListener("activate", function (e) {
   );
 });
 
-self.addEventListener("fetch", function (event) {
-  event.respondWith(
+self.addEventListener("fetch", function (evento) {
+  console.log('SW - requisição na URL ', event.request.url);
+  evento.respondWith(
     // Veja se tem no cache
     caches
-      .match(event.request)
+      .match(evento.request)
       .then(function (response) {
-        return response || fetch(event.request);
+        return response || fetch(evento.request);
       })
       .catch(function (error) {
         console.log("[ServiceWorker] fetch error", error);
