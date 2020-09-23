@@ -1,4 +1,4 @@
-export default trabalhos = [
+export default [
   {
     numero: "1",
     titulo:
