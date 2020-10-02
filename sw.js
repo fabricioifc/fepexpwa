@@ -1,4 +1,4 @@
-const CACHE_NAME = "fepex-v1";
+const CACHE_NAME = "fepex-v2";
 const CACHE_FILES = [
   "/",
   "manifest.json",
@@ -10,6 +10,7 @@ const CACHE_FILES = [
   "public/assets/image/logo192.png",
   "public/assets/image/logo144.png",
   "public/assets/image/logo512.png",
+  "//fonts.googleapis.com/icon?family=Material+Icons"
 ];
 
 self.addEventListener("install", (evento) => {
